@@ -33,6 +33,9 @@ public:
 };
 
 class Teacher : public Human, public iActions {
+private:
+    std::string subject;
+    int experience;
 public:
     Teacher(const std::string& name, int age) : Human(name, age) {}
     virtual void eat() { std::cout << "Я ем" << std::endl; }
@@ -61,6 +64,8 @@ public:
 };
 
 class Pervak : public Student {
+private:
+    int ballEge;
 public:
     Pervak(const std::string& name, int age, const std::string& university)
         : Student(name, age, university) {}

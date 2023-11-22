@@ -25,7 +25,17 @@ public:
     }
 };
 
-class Student : public Human {
+class iActions {
+public:
+    iActions() { std::cout << "iActions object created" << std::endl; }
+    virtual ~iActions() {}
+
+    virtual void eat() = 0;
+    virtual void sleep() = 0;
+    virtual void work() = 0;
+};
+
+class Student : public Human, public iActions {
 private:
     std::string university;
 
@@ -40,24 +50,30 @@ public:
     void setUniversity(const std::string& newUniversity) {
         university = newUniversity;
     }
+    virtual void eat() { std::cout << "Я не ем" << std::endl; }
+    virtual void sleep() { std::cout << "Я не сплю" << std::endl; }
+    virtual void work() { std::cout << "Я работаю" << std::endl; }
 };
 
-class Pervak : public Human, public Student {
-    
-};
-
-class iActions{
+class Teacher : public Human, public iActions {
 public:
-    virtual ~iActions() {}
+    virtual void eat() { std::cout << "Я ем" << std::endl; }
+    virtual void sleep() { std::cout << "Я сплю" << std::endl; }
+    virtual void work() { std::cout << "Я работаю" << std::endl; }
+};
 
-    virtual void eat() = 0;
-    virtual void sleep() = 0;
-    virtual void work() = 0;
+class Pervak : public Student {
+public:
+    virtual void eat() { std::cout << "Я ем" << std::endl; }
+    virtual void sleep() { std::cout << "Я не сплю" << std::endl; }
+    virtual void work() { std::cout << "Я не работаю" << std::endl; }
 };
 
 int main() {
+    setlocale(LC_ALL, "Russian");
     Human person1("Ivanov Bandit", 12);
     Student person2("Shket Sasha", 17,"FEFU");
     person2.setName("Vadim");
     std::cout << person2.getUniversity() << std::endl;
+    person2.sleep();
 }

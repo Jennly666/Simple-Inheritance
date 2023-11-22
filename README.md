@@ -42,6 +42,19 @@ public:
     }
 };
 
+class Pervak : public Human, public Student {
+    
+};
+
+class iActions{
+public:
+    virtual ~iActions() {}
+
+    virtual void eat() = 0;
+    virtual void sleep() = 0;
+    virtual void work() = 0;
+};
+
 int main() {
     Human person1("Ivanov Bandit", 12);
     Student person2("Shket Sasha", 17,"FEFU");

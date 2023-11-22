@@ -27,18 +27,23 @@ public:
 
 class iActions {
 public:
-    iActions() { std::cout << "iActions object created" << std::endl; }
-    virtual ~iActions() {}
-
     virtual void eat() = 0;
     virtual void sleep() = 0;
     virtual void work() = 0;
 };
 
+class Teacher : public Human, public iActions {
+public:
+    Teacher(const std::string& name, int age) : Human(name, age) {}
+    virtual void eat() { std::cout << "Я ем" << std::endl; }
+    virtual void sleep() { std::cout << "Я сплю" << std::endl; }
+    virtual void work() { std::cout << "Я работаю" << std::endl; }
+    void teach() { std::cout << "Я преподаю" << std::endl; }
+};
+
 class Student : public Human, public iActions {
 private:
     std::string university;
-
 public:
     Student(const std::string& name, int age, const std::string& university)
         : Human(name, age), university(university) {}
@@ -55,25 +60,35 @@ public:
     virtual void work() { std::cout << "Я работаю" << std::endl; }
 };
 
-class Teacher : public Human, public iActions {
-public:
-    virtual void eat() { std::cout << "Я ем" << std::endl; }
-    virtual void sleep() { std::cout << "Я сплю" << std::endl; }
-    virtual void work() { std::cout << "Я работаю" << std::endl; }
-};
-
 class Pervak : public Student {
 public:
+    Pervak(const std::string& name, int age, const std::string& university)
+        : Student(name, age, university) {}
     virtual void eat() { std::cout << "Я ем" << std::endl; }
     virtual void sleep() { std::cout << "Я не сплю" << std::endl; }
     virtual void work() { std::cout << "Я не работаю" << std::endl; }
+    void cheat() { std::cout << "Я списываю" << std::endl; }
 };
 
 int main() {
     setlocale(LC_ALL, "Russian");
     Human person1("Ivanov Bandit", 12);
     Student person2("Shket Sasha", 17,"FEFU");
-    person2.setName("Vadim");
-    std::cout << person2.getUniversity() << std::endl;
-    person2.sleep();
+    Teacher person3("Ivan", 3);
+    Pervak person4("Gosha", 2, "sakhgu");
+
+    std::cout << person4.getAge() << std::endl;
+    person4.setUniversity("college");
+    person4.eat();
+    person4.cheat();
+
+    std::cout << person3.getName() << std::endl;
+    person3.sleep();
+    person3.teach();
+
+    std::cout <<  person2.getAge() << std::endl;
+    person2.work();
+    person2.setName("Sipliy");
+
+    person1.setAge(6);
 }
